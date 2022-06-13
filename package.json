@@ -1,21 +1,23 @@
 {
-  "name": "yarn-example",
+  "name": "staking-rent-deposit",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MIT",
-  "author": "Stefan Loeffler <office.stefanloeffler@gmail.com>",
   "devDependencies": {
-    "@nomiclabs/hardhat-ethers": "^2.0.0",
+    "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers",
     "@nomiclabs/hardhat-waffle": "^2.0.0",
+    "chai": "^4.2.0",
     "ethereum-waffle": "^3.0.0",
-    "ethers": "^5.0.0",
-    "hardhat": "^2.9.7"
+    "ethers": "^5.6.8",
+    "hardhat": "^2.9.3",
+    "hardhat-deploy": "^0.11.10"
   },
   "dependencies": {
     "@ensdomains/ens-contracts": "^0.0.11",
     "@ethereum-waffle/provider": "^3.4.4",
     "chai": "^4.2.0",
     "debug": "^4.3.4",
+    "dotenv": "^16.0.1",
+    "solc": "0.8.7-fixed",
     "typescript": ">=3.7.0"
   }
 }

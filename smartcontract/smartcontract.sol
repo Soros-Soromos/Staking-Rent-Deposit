@@ -1,38 +1,55 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract SecurityDeposit {
-    //mapping(address => uint256) public addressToAmountFunded;
-   /* uint deposit;
-    bool paid;
-    address landlord = msg.sender;
-    address renter;
+//error RentDeposit__TooMuch();
 
-    constructor {
-        
-    }*/
-    uint256 deposit;
-    mapping(address => uint256) public addressToDeposit;
-    function askDeposit (uint256 _deposit) public {
-        deposit = _deposit;
-        addressToDeposit[msg.sender] += deposit;
-        //funders.push(msg.sender);
-    }
-    function payDeposit (address _landlord) payable public {
-        require(msg.value >= addressToDeposit[_landlord], "You must pay the whole Security Deposit!");
-    }
-
-// fn: Create new property, Kaution festlegen
+/**@title Staking Rent Deposit
+ * @author Stefan Löffler
+ * @notice This contract is for creating a Rent Deposit Contract with the option to stake it later
+ */
+contract RentDeposit {
     
+    //address private immutable i_landlord; //owner
+    address[] private s_renter; //funders
+    mapping(address => uint256) private s_addressToAmountDeposited;
+   
+    /*modifier onlyOwnDeposit() {
+        if (msg.value > s_addressToAmountDeposited[msg.sender]) revert RentDeposit__TooMuch();
+        _;
+    }*/
+
+    /*constructor(address) {
+        i_landlord = msg.sender;
+    }*/
+
+    function fund() public payable {
+        s_addressToAmountDeposited[msg.sender] += msg.value;
+        s_renter.push(msg.sender);
+    }
+
+    function withdraw() public {
+    // (bool success, ) = payable(msg.sender).call{value: s_addressToAmountDeposited(msg.sender)}("");
+       // require(success);
+        payable (msg.sender).transfer(s_addressToAmountDeposited[msg.sender]);
+        s_addressToAmountDeposited[msg.sender] = 0;
+       
+    }
+
+    function getAddressToAmountFunded(address RenterAddress)
+        public
+        view
+        returns (uint256)
+    {
+        return s_addressToAmountDeposited[RenterAddress];
+    }
+     fallback() external payable {
+        fund();
+    }
+
+    receive() external payable {
+        fund();
+    }
 
 
-// fn: Send deposit (by renter)
-
-
-
-// fn: Send deposit back
-
-// fn: Landlord gets deposit (if both parties agree)
-
-// fn: stake deposit?
+    
 }
