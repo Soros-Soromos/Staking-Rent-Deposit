@@ -10,6 +10,7 @@ The Missing Parts:
 - A function for the landlord to release the Deposit
 - Proper Testing, Documentation, and Error handling
 - Contract Verification
+- Gas Optimization
 - Modern UI
 - etc.
 
